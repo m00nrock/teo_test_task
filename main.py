@@ -35,7 +35,7 @@ bot = Bot(token=os.getenv('TOKEN'))
 storage = MemoryStorage()
 dp = Dispatcher(bot, storage=storage)
 URI = (f'postgresql+psycopg2://{os.getenv("POSTGRES_USER")}:'
-       f'{os.getenv("POSTGRES_PASSWORD")}@{os.getenv("DB_HOST")}'
+       f'{os.getenv("POSTGRES_PASSWORD")}@{os.getenv("LOCAL_DB")}:{os.getenv("DB_PORT")}'
        f'/{os.getenv("DB_NAME")}')
 engine = create_engine(URI)
 session = scoped_session(sessionmaker(bind=engine))
@@ -154,7 +154,7 @@ async def mailing():
 
 async def schedule():
     # выполняем рассылку в 17:00 (по системному времени сервера) каждый день
-    aioschedule.every().day.at("17:02").do(mailing)
+    aioschedule.every().day.at("17:00").do(mailing)
     while True:
         await aioschedule.run_pending()
         logger.info('Waiting...')
