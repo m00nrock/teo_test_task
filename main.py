@@ -153,8 +153,8 @@ async def mailing():
 
 
 async def schedule():
-    # выполняем рассылку в 17:00 (по системному времени сервера) каждый день
-    aioschedule.every().day.at("17:00").do(mailing)
+    # выполняем рассылку в 15:00 (по системному времени сервера) каждый день
+    aioschedule.every().day.at("15:00").do(mailing)
     while True:
         await aioschedule.run_pending()
         logger.info('Waiting...')

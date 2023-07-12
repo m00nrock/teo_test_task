@@ -1,5 +1,5 @@
 FROM python:3.9-slim
-
+ENV TZ="Europe/Moscow"
 WORKDIR /bot
 
 COPY . .
